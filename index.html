@@ -29,7 +29,9 @@
     <div class="h-scroll-container" id="scroll-container">
       <!-- Section 1: Title -->
       <section class="panel title-panel">
-        <h1 class="massive-text">ALI<br /><span class="outline">A.</span></h1>
+        <h1 class="massive-text">
+          ALI<br /><span class="outline">HASSAN</span>
+        </h1>
         <div class="meta-data">
           <p>FULL STACK</p>
           <p>SOFTWARE</p>
@@ -59,9 +61,12 @@
           </p>
         </div>
       </section>
+    </div>
 
+    <!-- Vertical Scroll Sections (after horizontal scroll ends) -->
+    <div class="v-scroll-container" id="vertical-sections">
       <!-- Section 3: Project 1 -->
-      <section class="panel project-panel dark">
+      <section class="v-panel project-panel dark">
         <div class="project-num">01/</div>
         <div class="project-content">
           <h2 class="huge-text">AI<br />SAAS</h2>
@@ -74,7 +79,7 @@
       </section>
 
       <!-- Section 4: Project 2 -->
-      <section class="panel project-panel light">
+      <section class="v-panel project-panel light">
         <div class="project-num">02/</div>
         <div class="project-content">
           <h2 class="huge-text">MICRO<br />SERVE</h2>
@@ -85,32 +90,29 @@
           </div>
         </div>
       </section>
-
-      <!-- Section 5: Project 3 -->
-      <section class="panel project-panel dark">
-        <div class="project-num">03/</div>
-        <div class="project-content">
-          <h2 class="huge-text">REAL<br />TIME</h2>
-          <div class="project-details">
-            <p><strong>STACK:</strong> REACT NATIVE, EXPRESS, WSS</p>
-            <p><strong>SCOPE:</strong> MOBILE APP + SOCKETS</p>
-            <a href="#" class="view-link">VIEW LIVE DEMO</a>
+      <div class="bottom-scroll" id="bottom-scroll">
+        <!-- Section 5: Project 3 -->
+        <section class="v-panel project-panel dark">
+          <div class="project-num">03/</div>
+          <div class="project-content">
+            <h2 class="huge-text">REAL<br />TIME</h2>
+            <div class="project-details">
+              <p><strong>STACK:</strong> REACT NATIVE, EXPRESS, WSS</p>
+              <p><strong>SCOPE:</strong> MOBILE APP + SOCKETS</p>
+              <a href="#" class="view-link">VIEW LIVE DEMO</a>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <!-- Section 6: Contact -->
-      <section class="panel contact-panel">
-        <h2 class="massive-text">CONNECT.</h2>
-        <div class="contact-links">
-          <a href="mailto:contact@ali.com" class="c-link">EMAIL</a>
-          <a href="#" class="c-link">GITHUB</a>
-          <a href="#" class="c-link">LINKEDIN</a>
-        </div>
-      </section>
-
-      <!-- End blank buffer so last panel stays on screen properly -->
-      <section class="panel buffer"></section>
+        </section>
+        <!-- Section 6: Contact -->
+        <section class="panel contact-panel dark">
+          <h2 class="massive-text">CONNECT!</h2>
+          <div class="contact-links">
+            <a href="mailto:contact@ali.com" class="c-link">EMAIL</a>
+            <a href="#" class="c-link">GITHUB</a>
+            <a href="#" class="c-link">LINKEDIN</a>
+          </div>
+        </section>
+      </div>
     </div>
 
     <!-- Progress Bar -->
