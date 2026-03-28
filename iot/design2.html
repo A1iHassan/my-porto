@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RTLS Blueprint — IoT LoRaWAN Positioning System</title>
+    <meta
+      name="description"
+      content="Engineering blueprint specification for IoT LoRaWAN Real-Time Positioning System"
+    />
+    <link rel="stylesheet" href="design2.css" />
+  </head>
+  <body>
+    <!-- Blueprint Header Bar -->
+    <header class="blueprint-header">
+      <div class="title-block">
+        <span class="doc-id">DWG-001</span>
+        <span class="doc-title">RTLS — LoRaWAN Positioning System</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#services">Services</a>
+        <a href="#calculations">Calculations</a>
+        <a href="#dataflow">Data Flow</a>
+        <a href="#live">Live Feed</a>
+        <a href="#specs">Specs</a>
+      </nav>
+    </header>
+
+    <main class="blueprint-main">
+      <!-- ======== HERO ======== -->
+      <section class="bp-section visible hero-section" id="hero">
+        <h1 class="bp-title">IoT Real-Time<br />Location System</h1>
+        <p class="bp-text">
+          Engineering specification for a distributed LoRaWAN signal processing
+          platform. Converts RSSI radio signals into real-time indoor
+          positioning coordinates through an event-driven microservices
+          architecture.
+        </p>
+        <div class="hero-stamp">CONFIDENTIAL — PRIVATE PROJECT</div>
+      </section>
+
+      <!-- ======== OVERVIEW ======== -->
+      <section class="bp-section" id="overview">
+        <div class="detail-label">Detail A — Overview</div>
+        <h2 class="bp-title">System Overview</h2>
+        <p class="bp-text">
+          The system receives radio signals from
+          <strong>LoRaWAN tracking devices</strong> via relay beacons and a
+          network gateway. These signals are ingested from a
+          <strong>RabbitMQ message broker</strong>, filtered, and processed
+          through RSSI-based positioning algorithms to determine the indoor
+          coordinates of each tracker.
+        </p>
+        <br />
+        <p class="bp-text">
+          Computed positions are streamed in real time to connected clients via
+          <strong>Server-Sent Events (SSE)</strong>, enabling live visualization
+          of device movement on interactive floor plan interfaces. The entire
+          pipeline operates as a set of loosely-coupled microservices
+          communicating through <strong>Redis Pub/Sub</strong>.
+        </p>
+      </section>
+
+      <!-- ======== ARCHITECTURE ======== -->
+      <section class="bp-section" id="architecture">
+        <div class="detail-label">Detail B — Architecture</div>
+        <h2 class="bp-title">System Architecture</h2>
+
+        <div class="arch-diagram-container">
+          <div class="arch-nodes">
+            <!-- Row 1: Input -->
+            <div class="arch-node">
+              <div class="node-label">Input</div>
+              <div class="node-name">LoRaWAN Trackers</div>
+              <div class="node-desc">
+                Broadcast radio packets with RSSI payloads at regular intervals
+              </div>
+            </div>
+            <div class="arch-node">
+              <div class="node-label">Bridge</div>
+              <div class="node-name">Gateway</div>
+              <div class="node-desc">
+                Demodulates radio signals and forwards via MQTT to message
+                broker
+              </div>
+            </div>
+            <div class="arch-node">
+              <div class="node-label">Broker</div>
+              <div class="node-name">RabbitMQ</div>
+              <div class="node-desc">
+                AMQP exchange distributing device payloads to subscribed
+                consumers
+              </div>
+            </div>
+
+            <!-- Connector -->
+            <div class="arch-connector">
+              <span class="line"></span>
+              <span>▼ AMQP Subscribe</span>
+              <span class="line"></span>
+            </div>
+
+            <!-- Row 2: Processing -->
+            <div class="arch-node">
+              <div class="node-label">Service A</div>
+              <div class="node-name">Consumer</div>
+              <div class="node-desc">
+                Filters, validates, and routes packets to Redis Pub/Sub channels
+              </div>
+            </div>
+            <div class="arch-node">
+              <div class="node-label">Service B</div>
+              <div class="node-name">Calculations</div>
+              <div class="node-desc">
+                RSSI → distance conversion, trilateration, coordinate generation
+              </div>
+            </div>
+            <div class="arch-node">
+              <div class="node-label">Service C</div>
+              <div class="node-name">SSE Manager</div>
+              <div class="node-desc">
+                Manages client sessions and streams live position updates via
+                SSE
+              </div>
+            </div>
+
+            <!-- Connector -->
+            <div class="arch-connector">
+              <span class="line"></span>
+              <span>▼ Redis Pub/Sub + REST</span>
+              <span class="line"></span>
+            </div>
+
+            <!-- Row 3: Output -->
+            <div class="arch-node">
+              <div class="node-label">Service D</div>
+              <div class="node-name">API Gateway</div>
+              <div class="node-desc">
+                REST API for auth, CRUD, floor plans, and database operations
+              </div>
+            </div>
+            <div class="arch-node">
+              <div class="node-label">Storage</div>
+              <div class="node-name">PostgreSQL</div>
+              <div class="node-desc">
+                Persistent data store for devices, beacons, floor plans, and
+                users
+              </div>
+            </div>
+            <div class="arch-node">
+              <div class="node-label">Client</div>
+              <div class="node-name">React Frontend</div>
+              <div class="node-desc">
+                Interactive floor plan UI with real-time device position
+                rendering
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======== SERVICES ======== -->
+      <section class="bp-section" id="services">
+        <div class="detail-label">Detail C — Services</div>
+        <h2 class="bp-title">Microservices Breakdown</h2>
+
+        <div class="service-details">
+          <div class="service-detail-card">
+            <span class="card-ref">SVC-01</span>
+            <div class="card-title">Consumer Service</div>
+            <p class="card-text">
+              Subscribes to the RabbitMQ exchange to ingest raw LoRaWAN
+              payloads. Performs packet filtering — discarding malformed or
+              duplicate frames — validates RSSI readings, and routes cleaned
+              messages to their respective Redis Pub/Sub channels based on
+              payload type.
+            </p>
+            <div class="card-specs">
+              <span class="card-spec-tag">Node.js</span>
+              <span class="card-spec-tag">RabbitMQ</span>
+              <span class="card-spec-tag">Redis</span>
+              <span class="card-spec-tag">AMQP</span>
+            </div>
+          </div>
+
+          <div class="service-detail-card">
+            <span class="card-ref">SVC-02</span>
+            <div class="card-title">Calculations Engine</div>
+            <p class="card-text">
+              Subscribes to Redis channels with calculation payloads containing
+              RSSI values from multiple relay beacons. Converts RSSI to
+              distances via path-loss models, then applies trilateration to
+              compute (x, y) positioning coordinates. Results are published to
+              post-calculation channels.
+            </p>
+            <div class="card-specs">
+              <span class="card-spec-tag">Node.js</span>
+              <span class="card-spec-tag">Redis Pub/Sub</span>
+              <span class="card-spec-tag">Mathematics</span>
+            </div>
+          </div>
+
+          <div class="service-detail-card">
+            <span class="card-ref">SVC-03</span>
+            <div class="card-title">API Gateway</div>
+            <p class="card-text">
+              RESTful API managing all client-facing operations: authentication
+              via JWT, CRUD for devices, beacons, floor plans, workspace
+              management, and PostgreSQL database interactions. Serves as the
+              primary bridge between the frontend client and persistent storage.
+            </p>
+            <div class="card-specs">
+              <span class="card-spec-tag">NestJS</span>
+              <span class="card-spec-tag">PostgreSQL</span>
+              <span class="card-spec-tag">REST</span>
+              <span class="card-spec-tag">JWT Auth</span>
+            </div>
+          </div>
+
+          <div class="service-detail-card">
+            <span class="card-ref">SVC-04</span>
+            <div class="card-title">SSE Connection Manager</div>
+            <p class="card-text">
+              Manages persistent Server-Sent Event connections with frontend
+              clients. When a user starts a live tracking session, this service
+              opens an SSE stream and dispatches real-time position updates,
+              enabling smooth, animated device movement on floor plan
+              visualizations.
+            </p>
+            <div class="card-specs">
+              <span class="card-spec-tag">NestJS</span>
+              <span class="card-spec-tag">SSE</span>
+              <span class="card-spec-tag">Redis Sub</span>
+              <span class="card-spec-tag">EventSource</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======== CALCULATIONS ======== -->
+      <section class="bp-section" id="calculations">
+        <div class="detail-label">Detail D — Calculations</div>
+        <h2 class="bp-title">Positioning Algorithms</h2>
+
+        <div class="calc-card" data-ref="CALC-01">
+          <div class="calc-title">RSSI → Distance (Path Loss Model)</div>
+          <p class="calc-text">
+            Each relay beacon reports an RSSI value (dBm) for the tracker's
+            signal. The log-distance path loss model converts this to an
+            estimated distance:
+          </p>
+          <div class="formula-box">
+            d = 10 ^ ((RSSI_ref − RSSI_measured) / (10 × n))
+          </div>
+          <p class="calc-text">
+            <em>d</em> = estimated distance · <em>RSSI_ref</em> = reference RSSI
+            at 1m · <em>n</em> = path loss exponent (2–4, environment-dependent)
+          </p>
+        </div>
+
+        <div class="calc-card" data-ref="CALC-02">
+          <div class="calc-title">Trilateration</div>
+          <p class="calc-text">
+            With distances from ≥3 beacons at known positions (x₁,y₁), (x₂,y₂),
+            (x₃,y₃) with distances d₁, d₂, d₃:
+          </p>
+          <div class="formula-box">
+            (x − xᵢ)² + (y − yᵢ)² = dᵢ² → linearize and solve for (x, y)
+          </div>
+          <p class="calc-text">
+            Equations are linearized by subtracting pairs. With >3 beacons,
+            least-squares estimation improves accuracy through redundancy.
+          </p>
+        </div>
+
+        <div class="calc-card" data-ref="CALC-03">
+          <div class="calc-title">Weighted Centroid Fallback</div>
+          <p class="calc-text">
+            When fewer than 3 reliable readings are available, the system uses a
+            weighted centroid approach:
+          </p>
+          <div class="formula-box">
+            pos = Σ(wᵢ × posᵢ) / Σ(wᵢ) where wᵢ = 1 / dᵢ²
+          </div>
+          <p class="calc-text">
+            Beacon positions are weighted inversely by distance, providing a
+            reasonable estimate while degrading gracefully.
+          </p>
+        </div>
+      </section>
+
+      <!-- ======== DATA FLOW ======== -->
+      <section class="bp-section" id="dataflow">
+        <div class="detail-label">Detail E — Pipeline</div>
+        <h2 class="bp-title">End-to-End Data Flow</h2>
+
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <div class="pipeline-num">01</div>
+            <div class="pipeline-content">
+              <div class="step-title">Signal Transmission</div>
+              <div class="step-desc">
+                LoRaWAN trackers broadcast radio packets at regular intervals.
+                Each payload contains the device ID and RSSI values as received
+                by nearby relay beacons.
+              </div>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">02</div>
+            <div class="pipeline-content">
+              <div class="step-title">Gateway Processing</div>
+              <div class="step-desc">
+                The LoRaWAN gateway demodulates radio signals and forwards
+                structured packets to RabbitMQ via the MQTT bridge.
+              </div>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">03</div>
+            <div class="pipeline-content">
+              <div class="step-title">Consumer Filtering</div>
+              <div class="step-desc">
+                Consumer validates packets, filters duplicates and malformed
+                data, then publishes cleaned RSSI payloads to Redis Pub/Sub
+                channels.
+              </div>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">04</div>
+            <div class="pipeline-content">
+              <div class="step-title">Position Calculation</div>
+              <div class="step-desc">
+                Calculation service applies path-loss models and trilateration,
+                publishing resulting (x, y) coordinates to post-calculation
+                Redis channels.
+              </div>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">05</div>
+            <div class="pipeline-content">
+              <div class="step-title">SSE Streaming</div>
+              <div class="step-desc">
+                SSE Manager matches results to active sessions and pushes
+                position updates via persistent EventSource connections to
+                browsers.
+              </div>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">06</div>
+            <div class="pipeline-content">
+              <div class="step-title">Front-End Rendering</div>
+              <div class="step-desc">
+                React client animates device markers to new coordinates on the
+                floor plan using CSS transitions, creating fluid real-time
+                tracking.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======== LIVE FEED ======== -->
+      <section class="bp-section" id="live">
+        <div class="detail-label">Detail F — Live Feed</div>
+        <h2 class="bp-title">SSE Data Stream</h2>
+        <p class="bp-text" style="margin-bottom: 1.5rem">
+          The front end connects via the browser's native
+          <code>EventSource</code> API. Each event carries updated device
+          coordinates. The UI applies
+          <code>transition: transform 0.3s ease</code> to tracker markers,
+          enabling smooth animated movement as positions update every ~1–2
+          seconds.
+        </p>
+
+        <div class="sse-visualization">
+          <div class="sse-live-badge">
+            <span class="dot"></span>
+            LIVE — EVENT STREAM ACTIVE
+          </div>
+          <div class="sse-log" id="sse-log">
+            <!-- JS populates -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ======== SPECS ======== -->
+      <section class="bp-section" id="specs">
+        <div class="detail-label">Detail G — Specifications</div>
+        <h2 class="bp-title">Technical Specifications</h2>
+
+        <div class="specs-grid">
+          <div class="specs-row">
+            <div class="specs-key">Communication Protocol</div>
+            <div class="specs-val">LoRaWAN (Long Range Wide Area Network)</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Message Broker</div>
+            <div class="specs-val">RabbitMQ (AMQP 0-9-1)</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Inter-Service Comm.</div>
+            <div class="specs-val">Redis Pub/Sub</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Positioning Method</div>
+            <div class="specs-val">RSSI Trilateration + Weighted Centroid</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Backend Framework</div>
+            <div class="specs-val">NestJS (TypeScript)</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Frontend Framework</div>
+            <div class="specs-val">React (TypeScript)</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Database</div>
+            <div class="specs-val">PostgreSQL</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Client Streaming</div>
+            <div class="specs-val">Server-Sent Events (SSE / EventSource)</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Deployment</div>
+            <div class="specs-val">Docker Compose / Multi-container</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Update Frequency</div>
+            <div class="specs-val">~1–2 second intervals</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Architecture Style</div>
+            <div class="specs-val">Event-driven Microservices</div>
+          </div>
+          <div class="specs-row">
+            <div class="specs-key">Authentication</div>
+            <div class="specs-val">JWT (httpOnly cookies)</div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="blueprint-footer">
+        RTLS — IoT LoRaWAN Positioning System · Private Project · DWG-001 REV
+        3.2
+      </footer>
+    </main>
+
+    <script src="design2.js"></script>
+  </body>
+</html>
