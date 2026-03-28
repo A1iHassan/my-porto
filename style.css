@@ -371,7 +371,7 @@ html {
     word-break: break-word; /* Prevent overflow on super small screens */
   }
   .huge-text {
-    font-size: clamp(3rem, 12vw, 4rem);
+    font-size: clamp(2rem, 10vw, 3rem);
   }
 
   .title-panel {

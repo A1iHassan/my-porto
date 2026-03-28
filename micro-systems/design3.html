@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterprise Integration Architecture</title>
+    <meta
+      name="description"
+      content="Swiss Minimalist flowchart of the ERP Connection Mechanism"
+    />
+    <link rel="stylesheet" href="design3.css" />
+  </head>
+  <body>
+    <main class="container">
+      <!-- Header -->
+      <header class="swiss-header">
+        <div class="title-block">
+          <h1>Integration Protocol</h1>
+          <div class="subtitle">Secure ERP Data Exchange Mechanism</div>
+        </div>
+        <div class="meta-info">
+          <span>Framework: Admin System Enterprise</span>
+          <span
+            >Auth:
+            <span class="red">Token-Based Identity Validation</span></span
+          >
+          <span>Scope: Internal Micro-Systems</span>
+        </div>
+      </header>
+
+      <!-- Introduction Panel -->
+      <section
+        class="intro-block"
+        style="margin-bottom: 4rem; max-width: 850px"
+      >
+        <h3
+          style="
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          "
+        >
+          System Overview & Rationale
+        </h3>
+        <p
+          style="
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--ink-light);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+          "
+        >
+          This integration protocol was architected to facilitate
+          <strong>secure, automated data exchange</strong> between independent
+          ERP systems operating under the unified Admin System umbrella. It
+          ensures systems can communicate seamlessly within explicitly allowed
+          boundaries.
+        </p>
+        <p
+          style="
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--ink-light);
+            line-height: 1.7;
+          "
+        >
+          <strong>The Problem Solved:</strong> Historically, integrating these
+          enterprise platforms required brittle, manual configuration of
+          credentials to send and receive data. This mechanism replaces static
+          configuration with a dynamic handshake. By issuing temporary,
+          scope-limited access tokens upon validation by the central Service
+          Provider, it completely eliminates manual setup overhead while
+          actively enforcing zero-trust security principles.
+        </p>
+      </section>
+
+      <!-- Flowchart Visual -->
+      <section class="flowchart-wrapper">
+        <div class="flow-line"></div>
+
+        <div class="flow-nodes">
+          <!-- Node 1 -->
+          <div class="flow-node active" data-step="1">
+            <div class="node-step">Stage 01</div>
+            <h2 class="node-title">System A Initiation</h2>
+            <div class="node-endpoint">
+              <span class="method">POST</span> /initiate
+            </div>
+          </div>
+
+          <!-- Node 2 -->
+          <div class="flow-node" data-step="2">
+            <div class="node-step">Stage 02</div>
+            <h2 class="node-title">Credential Validation</h2>
+            <div class="node-endpoint">
+              <span class="method">POST</span> /validate
+            </div>
+          </div>
+
+          <!-- Node 3 -->
+          <div class="flow-node" data-step="3">
+            <div class="node-step">Stage 03</div>
+            <h2 class="node-title">Webhook Completion</h2>
+            <div class="node-endpoint">
+              <span class="method">POST</span> /complete
+            </div>
+          </div>
+
+          <!-- Node 4 -->
+          <div class="flow-node" data-step="4">
+            <div class="node-step">Stage 04</div>
+            <h2 class="node-title">State Resolution</h2>
+            <div class="node-endpoint">
+              <span class="method">SYNC</span> UI Update
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detail Panel -->
+      <section class="detail-panel">
+        <div class="detail-text">
+          <h2 id="details-title">System A Initiation</h2>
+          <div id="details-participants" style="margin-bottom: 1.5rem">
+            <span class="participant">Admin Interface</span>
+            <span class="participant">System A API</span>
+          </div>
+          <p id="details-desc">
+            The connection sequence commences. The administrative interface on
+            System A securely queries the backend `/initiate` endpoint. This
+            internal trigger instructs System A to construct a structured
+            connection request bound for the external target, System B.
+          </p>
+        </div>
+
+        <div class="detail-payload">
+          <div class="payload-label">Data Payload</div>
+          <div class="payload-content" id="payload-box">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="design3.js"></script>
+  </body>
+</html>

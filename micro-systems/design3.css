@@ -1,0 +1,330 @@
+/* =========================================
+   ERP Design 3: Enterprise Flowchart
+   Swiss Minimalist, High Contrast, Grid-based
+========================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap");
+
+:root {
+  --bg-paper: #f4f4f0; /* Warm off-white */
+  --ink: #111111; /* Stark black */
+  --ink-light: #555555;
+  --accent-red: #d62828; /* Cadmium Red */
+  --grid-line: rgba(17, 17, 17, 0.08);
+
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: "Lora", serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  overflow-x: hidden;
+  /* Very subtle grid background to mimic architectural paper */
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--bg-paper);
+}
+
+/* === LAYOUT === */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* === HEADER === */
+.swiss-header {
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 2rem;
+  margin-bottom: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.title-block h1 {
+  font-family: var(--font-sans);
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.title-block .subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--ink-light);
+  font-style: italic;
+}
+
+.meta-info {
+  text-align: right;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.meta-info span {
+  display: block;
+}
+.meta-info .red {
+  color: var(--accent-red);
+  font-weight: 700;
+}
+
+/* === HORIZONTAL FLOWCHART === */
+.flowchart-wrapper {
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+/* Central horizontal line connecting nodes */
+.flow-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--ink);
+  z-index: 0;
+}
+
+.flow-nodes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.flow-node {
+  background-color: var(--bg-paper);
+  border: 2px solid var(--ink);
+  padding: 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-node::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid var(--ink);
+  border-left: 2px solid var(--ink);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.flow-node::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid var(--ink);
+  border-right: 2px solid var(--ink);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.flow-node.active {
+  box-shadow: 8px 8px 0 var(--ink);
+  transform: translate(-4px, -4px);
+  border-color: var(--accent-red);
+}
+
+.flow-node.active::before,
+.flow-node.active::after {
+  opacity: 1;
+  border-color: var(--accent-red);
+}
+
+.node-step {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--ink-light);
+  margin-bottom: 1.5rem;
+}
+
+.flow-node.active .node-step {
+  color: var(--accent-red);
+}
+
+.node-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.node-endpoint {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.node-endpoint .method {
+  color: var(--bg-paper);
+  background-color: var(--ink);
+  padding: 0.1rem 0.4rem;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+}
+
+.flow-node.active .node-endpoint .method {
+  background-color: var(--accent-red);
+}
+
+/* === DETAIL PANEL === */
+.detail-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  border-top: 3px solid var(--ink);
+  padding-top: 3rem;
+  flex-grow: 1;
+}
+
+.detail-text h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.detail-text p {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--ink-light);
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+
+.detail-text .participant {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid var(--ink);
+  padding: 0.2rem 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Payload display */
+.detail-payload {
+  background-color: #fff;
+  border: 1px solid var(--ink);
+  padding: 2rem;
+  position: relative;
+  box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.05);
+}
+
+.payload-label {
+  position: absolute;
+  top: -10px;
+  left: -1px;
+  background-color: var(--ink);
+  color: var(--bg-paper);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 0.4rem 0.8rem;
+}
+
+.payload-content {
+  margin-top: 1rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--ink);
+  white-space: pre-wrap;
+}
+
+/* Data injection classes */
+.hl-key {
+  font-weight: 700;
+  color: var(--ink);
+}
+.hl-string {
+  color: var(--accent-red);
+}
+.hl-comment {
+  color: var(--ink-light);
+  font-style: italic;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .flow-nodes {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+  .flow-line {
+    display: none;
+  }
+  .swiss-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .meta-info {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .flow-nodes {
+    grid-template-columns: 1fr;
+  }
+  .detail-panel {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .title-block h1 {
+    font-size: 2.2rem;
+  }
+}
