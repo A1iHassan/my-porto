@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atheneum ERP — Precision Architect</title>
+    <meta
+      name="description"
+      content="Atheneum ERP — Asymmetric split-panel landing page for enterprise resource planning."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #0053db;
+        --primary-dim: #0048c1;
+        --primary-light: #dbe1ff;
+        --surface: #f7f9fb;
+        --surface-lowest: #ffffff;
+        --on-surface: #2a3439;
+        --on-surface-variant: #566166;
+        --outline-variant: #a9b4b9;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", "Noto Sans Arabic", sans-serif;
+        background: var(--surface);
+        color: var(--on-surface);
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.6;
+      }
+      [dir="rtl"] body {
+        font-family: "Noto Sans Arabic", "Inter", sans-serif;
+      }
+      .font-headline {
+        font-family: "Manrope", "Noto Sans Arabic", sans-serif;
+      }
+      [dir="rtl"] .font-headline {
+        font-family: "Noto Sans Arabic", "Manrope", sans-serif;
+      }
+
+      /* ── Nav ── */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(247, 249, 251, 0.92);
+        backdrop-filter: blur(20px);
+      }
+      .nav-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: inherit;
+      }
+      .logo-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--primary);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-icon span {
+        color: white;
+        font-size: 20px;
+      }
+      .logo-text {
+        font-weight: 800;
+        font-size: 1.1rem;
+      }
+      [dir="rtl"] .logo-text {
+        font-family: "Noto Sans Arabic", "Manrope", sans-serif;
+      }
+      .nav-mid {
+        display: flex;
+        gap: 2rem;
+      }
+      .nav-mid a {
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--on-surface-variant);
+        transition: color 0.2s;
+      }
+      .nav-mid a:hover {
+        color: var(--primary);
+      }
+      .nav-end {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .lang-toggle {
+        width: 72px;
+        height: 34px;
+        border-radius: 100px;
+        border: 1px solid var(--outline-variant);
+        background: var(--surface-lowest);
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        padding: 3px;
+      }
+      .lang-toggle .knob {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.6rem;
+        font-weight: 800;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .lang-toggle.ar .knob {
+        transform: translateX(36px);
+      }
+      [dir="rtl"] .lang-toggle.ar .knob {
+        transform: translateX(-36px);
+      }
+      .cta-nav {
+        padding: 8px 20px;
+        border-radius: 8px;
+        border: none;
+        background: var(--primary);
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .cta-nav:hover {
+        background: var(--primary-dim);
+      }
+
+      /* ── Split Hero ── */
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding-top: 64px;
+      }
+      .hero-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px 4rem 80px 3rem;
+      }
+      .hero-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+      }
+      .hero-kicker .bullet {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--primary);
+      }
+      .hero h1 {
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        font-weight: 800;
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+        margin-bottom: 1.5rem;
+      }
+      .hero h1 .blue {
+        color: var(--primary);
+      }
+      .hero-desc {
+        font-size: 1rem;
+        color: var(--on-surface-variant);
+        line-height: 1.75;
+        margin-bottom: 2.5rem;
+        max-width: 420px;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 0.75rem;
+      }
+      .btn-solid {
+        padding: 14px 30px;
+        border-radius: 10px;
+        border: none;
+        background: var(--primary);
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.25s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .btn-solid:hover {
+        background: var(--primary-dim);
+        transform: translateY(-1px);
+      }
+      .btn-text {
+        padding: 14px 20px;
+        border-radius: 10px;
+        border: none;
+        background: transparent;
+        color: var(--on-surface);
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .btn-text:hover {
+        color: var(--primary);
+      }
+
+      .hero-right {
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-right::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.06;
+        pointer-events: none;
+        background: radial-gradient(
+          circle at 1px 1px,
+          white 1px,
+          transparent 0
+        );
+        background-size: 24px 24px;
+      }
+      .hero-panel-content {
+        position: relative;
+        z-index: 1;
+        color: white;
+        padding: 3rem;
+      }
+      .panel-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+      .panel-stat .value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .panel-stat .label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        opacity: 0.7;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-top: 0.25rem;
+      }
+      .panel-divider {
+        grid-column: span 2;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.15);
+        margin: 0.5rem 0;
+      }
+      .panel-tagline {
+        grid-column: span 2;
+        font-size: 1rem;
+        opacity: 0.7;
+        font-weight: 500;
+        line-height: 1.6;
+      }
+
+      /* ── Features (horizontal scroll style within grid) ── */
+      .features {
+        padding: 100px 3rem;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 3rem;
+      }
+      .section-label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+      .section-title {
+        font-size: clamp(1.8rem, 3vw, 2.4rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+      .section-header p {
+        font-size: 0.85rem;
+        color: var(--on-surface-variant);
+        max-width: 260px;
+        text-align: right;
+        line-height: 1.6;
+      }
+      [dir="rtl"] .section-header p {
+        text-align: left;
+      }
+
+      .features-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .feature-item {
+        display: grid;
+        grid-template-columns: 56px 1fr 40px;
+        gap: 1.5rem;
+        padding: 1.5rem 0;
+        border-bottom: 1px solid rgba(169, 180, 185, 0.12);
+        align-items: center;
+        transition: all 0.2s;
+        cursor: default;
+      }
+      .feature-item:first-child {
+        border-top: 1px solid rgba(169, 180, 185, 0.12);
+      }
+      .feature-item:hover {
+        padding-left: 0.5rem;
+      }
+      [dir="rtl"] .feature-item:hover {
+        padding-left: 0;
+        padding-right: 0.5rem;
+      }
+      .feature-item .icon-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: var(--primary-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .feature-item .icon-circle span {
+        color: var(--primary);
+        font-size: 22px;
+      }
+      .feature-item h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.2rem;
+      }
+      .feature-item p {
+        font-size: 0.84rem;
+        color: var(--on-surface-variant);
+        line-height: 1.5;
+      }
+      .feature-item .arrow {
+        color: var(--outline-variant);
+        transition: all 0.2s;
+        font-size: 20px;
+      }
+      .feature-item:hover .arrow {
+        color: var(--primary);
+        transform: translateX(4px);
+      }
+      [dir="rtl"] .feature-item:hover .arrow {
+        transform: translateX(-4px);
+      }
+
+      /* ── CTA ── */
+      .cta-section {
+        padding: 0 3rem 80px;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .cta-split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-radius: 20px;
+        overflow: hidden;
+        min-height: 320px;
+      }
+      .cta-left {
+        background: var(--on-surface);
+        color: white;
+        padding: 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .cta-left h2 {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+      .cta-left p {
+        font-size: 0.95rem;
+        opacity: 0.75;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+        max-width: 380px;
+      }
+      .btn-cta {
+        padding: 14px 32px;
+        border-radius: 10px;
+        border: none;
+        background: var(--primary);
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.25s;
+        align-self: flex-start;
+      }
+      .btn-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 83, 219, 0.3);
+      }
+      .cta-right {
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-right::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.06;
+        pointer-events: none;
+        background: radial-gradient(
+          circle at 1px 1px,
+          white 1px,
+          transparent 0
+        );
+        background-size: 28px 28px;
+      }
+      .cta-right .big-icon {
+        font-size: 120px;
+        color: white;
+        opacity: 0.15;
+      }
+
+      /* ── Footer ── */
+      .footer {
+        padding: 48px 3rem 24px;
+        max-width: 1280px;
+        margin: 0 auto;
+        border-top: 1px solid rgba(169, 180, 185, 0.12);
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 2.5rem;
+        margin-bottom: 2.5rem;
+      }
+      .footer-brand p {
+        font-size: 0.84rem;
+        color: var(--on-surface-variant);
+        line-height: 1.7;
+        margin-top: 0.75rem;
+        max-width: 260px;
+      }
+      .footer h4 {
+        font-size: 0.68rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--on-surface-variant);
+        margin-bottom: 0.75rem;
+      }
+      .footer ul {
+        list-style: none;
+      }
+      .footer ul li {
+        margin-bottom: 0.4rem;
+      }
+      .footer ul a {
+        text-decoration: none;
+        font-size: 0.84rem;
+        color: var(--on-surface);
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .footer ul a:hover {
+        color: var(--primary);
+      }
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(169, 180, 185, 0.08);
+        font-size: 0.78rem;
+        color: var(--on-surface-variant);
+      }
+      .footer-links {
+        display: flex;
+        gap: 1.25rem;
+      }
+      .footer-links a {
+        color: var(--on-surface-variant);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: var(--primary);
+      }
+
+      @media (max-width: 768px) {
+        .nav-mid {
+          display: none;
+        }
+        .nav-inner {
+          padding: 0 1.5rem;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-left {
+          padding: 80px 1.5rem 40px;
+        }
+        .hero-right {
+          min-height: 360px;
+        }
+        .features {
+          padding: 60px 1.5rem;
+        }
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+        .section-header p {
+          text-align: left;
+        }
+        .feature-item {
+          grid-template-columns: 48px 1fr;
+        }
+        .feature-item .arrow {
+          display: none;
+        }
+        .cta-section {
+          padding: 0 1.5rem 60px;
+        }
+        .cta-split {
+          grid-template-columns: 1fr;
+        }
+        .cta-right {
+          min-height: 200px;
+        }
+        .footer {
+          padding: 48px 1.5rem 24px;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          gap: 0.75rem;
+          text-align: center;
+        }
+      }
+
+      .fade-up {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Nav -->
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <div class="logo-icon">
+            <span class="material-symbols-outlined">architecture</span>
+          </div>
+          <span class="logo-text font-headline">Atheneum</span>
+        </a>
+        <div class="nav-mid">
+          <a href="#features" data-en="Features" data-ar="المميزات">Features</a>
+          <a href="#cta" data-en="Get Started" data-ar="ابدأ">Get Started</a>
+          <a href="#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+        </div>
+        <div class="nav-end">
+          <div class="lang-toggle" id="langToggle" onclick="toggleLang()">
+            <div class="knob" id="langKnob">EN</div>
+          </div>
+          <button class="cta-nav" data-en="Launch App" data-ar="تشغيل">
+            Launch App
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Split Hero -->
+    <section class="hero">
+      <div class="hero-left fade-up">
+        <div class="hero-kicker">
+          <div class="bullet"></div>
+          <span
+            data-en="Enterprise Resource Planning"
+            data-ar="تخطيط موارد المؤسسات"
+            >Enterprise Resource Planning</span
+          >
+        </div>
+        <h1 class="font-headline">
+          <span data-en="Manage with" data-ar="أدر بـ">Manage with</span><br />
+          <span class="blue" data-en="precision." data-ar="دقة."
+            >precision.</span
+          >
+        </h1>
+        <p
+          class="hero-desc"
+          data-en="Atheneum ERP unifies asset tracking, team management, analytics, and system control into one streamlined platform for modern enterprises."
+          data-ar="يوحد Atheneum ERP تتبع الأصول وإدارة الفرق والتحليلات والتحكم بالنظام في منصة واحدة مبسطة للمؤسسات الحديثة."
+        >
+          Atheneum ERP unifies asset tracking, team management, analytics, and
+          system control into one streamlined platform for modern enterprises.
+        </p>
+        <div class="hero-btns">
+          <button class="btn-solid">
+            <span data-en="Start Free Trial" data-ar="ابدأ تجربة مجانية"
+              >Start Free Trial</span
+            >
+            <span class="material-symbols-outlined" style="font-size: 18px"
+              >arrow_forward</span
+            >
+          </button>
+          <button class="btn-text">
+            <span class="material-symbols-outlined" style="font-size: 18px"
+              >play_circle</span
+            >
+            <span data-en="Watch Demo" data-ar="شاهد العرض">Watch Demo</span>
+          </button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-panel-content fade-up">
+          <div class="panel-stats">
+            <div class="panel-stat">
+              <div class="value font-headline">1,284</div>
+              <div class="label" data-en="Assets" data-ar="أصول">Assets</div>
+            </div>
+            <div class="panel-stat">
+              <div class="value font-headline">92.4%</div>
+              <div class="label" data-en="Deploy Rate" data-ar="معدل النشر">
+                Deploy Rate
+              </div>
+            </div>
+            <div class="panel-divider"></div>
+            <div class="panel-stat">
+              <div class="value font-headline">$240k</div>
+              <div class="label" data-en="Value" data-ar="القيمة">Value</div>
+            </div>
+            <div class="panel-stat">
+              <div class="value font-headline">42</div>
+              <div class="label" data-en="In Maintenance" data-ar="قيد الصيانة">
+                In Maintenance
+              </div>
+            </div>
+            <div class="panel-divider"></div>
+            <p
+              class="panel-tagline"
+              data-en="Real-time visibility across your entire enterprise infrastructure."
+              data-ar="رؤية فورية عبر البنية التحتية الكاملة لمؤسستك."
+            >
+              Real-time visibility across your entire enterprise infrastructure.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+      <div class="section-header fade-up">
+        <div>
+          <p
+            class="section-label"
+            data-en="Core Modules"
+            data-ar="الوحدات الأساسية"
+          >
+            Core Modules
+          </p>
+          <h2
+            class="section-title font-headline"
+            data-en="Built for enterprises."
+            data-ar="مصمم للمؤسسات."
+          >
+            Built for enterprises.
+          </h2>
+        </div>
+        <p
+          data-en="Five tightly integrated modules providing complete operational control."
+          data-ar="خمس وحدات متكاملة بإحكام توفر تحكمًا تشغيليًا كاملاً."
+        >
+          Five tightly integrated modules providing complete operational
+          control.
+        </p>
+      </div>
+      <div class="features-list">
+        <div class="feature-item fade-up">
+          <div class="icon-circle">
+            <span class="material-symbols-outlined">inventory_2</span>
+          </div>
+          <div>
+            <h3 data-en="Asset Management" data-ar="إدارة الأصول">
+              Asset Management
+            </h3>
+            <p
+              data-en="Full lifecycle tracking, real-time inventory, audit trails, and multi-location mapping."
+              data-ar="تتبع دورة الحياة الكاملة، جرد فوري، مسارات تدقيق، وخرائط متعددة المواقع."
+            >
+              Full lifecycle tracking, real-time inventory, audit trails, and
+              multi-location mapping.
+            </p>
+          </div>
+          <span class="material-symbols-outlined arrow">arrow_forward</span>
+        </div>
+        <div class="feature-item fade-up">
+          <div class="icon-circle">
+            <span class="material-symbols-outlined">group</span>
+          </div>
+          <div>
+            <h3 data-en="User Administration" data-ar="إدارة المستخدمين">
+              User Administration
+            </h3>
+            <p
+              data-en="Roles, permissions, department hierarchies, and cross-team access control."
+              data-ar="الأدوار والصلاحيات وتسلسل الأقسام والتحكم في الوصول عبر الفرق."
+            >
+              Roles, permissions, department hierarchies, and cross-team access
+              control.
+            </p>
+          </div>
+          <span class="material-symbols-outlined arrow">arrow_forward</span>
+        </div>
+        <div class="feature-item fade-up">
+          <div class="icon-circle">
+            <span class="material-symbols-outlined">monitoring</span>
+          </div>
+          <div>
+            <h3
+              data-en="Analytics & Statistics"
+              data-ar="التحليلات والإحصائيات"
+            >
+              Analytics & Statistics
+            </h3>
+            <p
+              data-en="Interactive dashboards, KPI tracking, and one-click executive reports."
+              data-ar="لوحات تحكم تفاعلية وتتبع المؤشرات وتقارير تنفيذية بنقرة واحدة."
+            >
+              Interactive dashboards, KPI tracking, and one-click executive
+              reports.
+            </p>
+          </div>
+          <span class="material-symbols-outlined arrow">arrow_forward</span>
+        </div>
+        <div class="feature-item fade-up">
+          <div class="icon-circle">
+            <span class="material-symbols-outlined">tune</span>
+          </div>
+          <div>
+            <h3 data-en="Customization" data-ar="التخصيص">Customization</h3>
+            <p
+              data-en="Workflow builder, custom fields, and per-department personalization."
+              data-ar="منشئ سير العمل وحقول مخصصة وتخصيص لكل قسم."
+            >
+              Workflow builder, custom fields, and per-department
+              personalization.
+            </p>
+          </div>
+          <span class="material-symbols-outlined arrow">arrow_forward</span>
+        </div>
+        <div class="feature-item fade-up">
+          <div class="icon-circle">
+            <span class="material-symbols-outlined">settings</span>
+          </div>
+          <div>
+            <h3 data-en="System Settings" data-ar="إعدادات النظام">
+              System Settings
+            </h3>
+            <p
+              data-en="Security, integrations, notifications, and compliance — centralized."
+              data-ar="الأمان والتكاملات والإشعارات والامتثال — مركزية."
+            >
+              Security, integrations, notifications, and compliance —
+              centralized.
+            </p>
+          </div>
+          <span class="material-symbols-outlined arrow">arrow_forward</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="cta">
+      <div class="cta-split fade-up">
+        <div class="cta-left">
+          <h2
+            class="font-headline"
+            data-en="Ready to take control?"
+            data-ar="هل أنت مستعد للسيطرة؟"
+          >
+            Ready to take control?
+          </h2>
+          <p
+            data-en="Start your free 14-day trial today. No credit card required. Full access to every module."
+            data-ar="ابدأ تجربتك المجانية لمدة 14 يومًا اليوم. بدون بطاقة ائتمان. وصول كامل لكل الوحدات."
+          >
+            Start your free 14-day trial today. No credit card required. Full
+            access to every module.
+          </p>
+          <button
+            class="btn-cta"
+            data-en="Get Started — Free"
+            data-ar="ابدأ — مجانًا"
+          >
+            Get Started — Free
+          </button>
+        </div>
+        <div class="cta-right">
+          <span class="material-symbols-outlined big-icon">rocket_launch</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 0.6rem;
+              margin-bottom: 0.5rem;
+            "
+          >
+            <div
+              class="logo-icon"
+              style="width: 28px; height: 28px; border-radius: 7px"
+            >
+              <span class="material-symbols-outlined" style="font-size: 16px"
+                >architecture</span
+              >
+            </div>
+            <span class="logo-text font-headline" style="font-size: 0.95rem"
+              >Atheneum ERP</span
+            >
+          </div>
+          <p
+            data-en="Enterprise precision through split-panel architecture and focused design."
+            data-ar="دقة مؤسسية من خلال هندسة الألواح المنقسمة والتصميم المركّز."
+          >
+            Enterprise precision through split-panel architecture and focused
+            design.
+          </p>
+        </div>
+        <div>
+          <h4 data-en="Product" data-ar="المنتج">Product</h4>
+          <ul>
+            <li>
+              <a href="#features" data-en="Features" data-ar="المميزات"
+                >Features</a
+              >
+            </li>
+            <li><a href="#" data-en="Pricing" data-ar="الأسعار">Pricing</a></li>
+            <li>
+              <a href="#" data-en="Updates" data-ar="التحديثات">Updates</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-en="Company" data-ar="الشركة">Company</h4>
+          <ul>
+            <li><a href="#" data-en="About" data-ar="عن الشركة">About</a></li>
+            <li><a href="#" data-en="Careers" data-ar="التوظيف">Careers</a></li>
+            <li><a href="#" data-en="Blog" data-ar="المدونة">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-en="Contact" data-ar="تواصل">Contact</h4>
+          <ul>
+            <li>
+              <a href="mailto:hello@atheneum-erp.com">hello@atheneum-erp.com</a>
+            </li>
+            <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+            <li>
+              <a href="#" data-en="Help Center" data-ar="مركز المساعدة"
+                >Help Center</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span
+          data-en="© 2026 Atheneum ERP. All rights reserved."
+          data-ar="© 2026 Atheneum ERP. جميع الحقوق محفوظة."
+          >© 2026 Atheneum ERP. All rights reserved.</span
+        >
+        <div class="footer-links">
+          <a href="#" data-en="Privacy" data-ar="الخصوصية">Privacy</a>
+          <a href="#" data-en="Terms" data-ar="الشروط">Terms</a>
+          <a href="#" data-en="LinkedIn" data-ar="لينكدإن">LinkedIn</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      let currentLang = "en";
+      function toggleLang() {
+        currentLang = currentLang === "en" ? "ar" : "en";
+        document.documentElement.lang = currentLang;
+        document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+        const knob = document.getElementById("langKnob");
+        const toggle = document.getElementById("langToggle");
+        knob.textContent = currentLang === "en" ? "EN" : "ع";
+        toggle.classList.toggle("ar", currentLang === "ar");
+        document.querySelectorAll("[data-en]").forEach((el) => {
+          el.textContent = el.getAttribute("data-" + currentLang);
+        });
+      }
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => entry.target.classList.add("visible"), i * 60);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".fade-up")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
