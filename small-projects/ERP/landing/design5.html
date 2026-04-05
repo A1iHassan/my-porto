@@ -17,7 +17,7 @@
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -44,20 +44,20 @@
         scroll-behavior: smooth;
       }
       body {
-        font-family: "Inter", "Noto Sans Arabic", sans-serif;
+        font-family: "Inter", "Cairo", sans-serif;
         background: var(--surface);
         color: var(--on-surface);
         -webkit-font-smoothing: antialiased;
         line-height: 1.6;
       }
       [dir="rtl"] body {
-        font-family: "Noto Sans Arabic", "Inter", sans-serif;
+        font-family: "Cairo", "Inter", sans-serif;
       }
       .font-headline {
-        font-family: "Manrope", "Noto Sans Arabic", sans-serif;
+        font-family: "Manrope", "Cairo", sans-serif;
       }
       [dir="rtl"] .font-headline {
-        font-family: "Noto Sans Arabic", "Manrope", sans-serif;
+        font-family: "Cairo", "Manrope", sans-serif;
       }
 
       /* ── Nav ── */
@@ -104,7 +104,7 @@
         font-size: 1.1rem;
       }
       [dir="rtl"] .logo-text {
-        font-family: "Noto Sans Arabic", "Manrope", sans-serif;
+        font-family: "Cairo", "Manrope", sans-serif;
       }
       .nav-mid {
         display: flex;
@@ -319,7 +319,7 @@
         line-height: 1.6;
       }
 
-      /* ── Features (horizontal scroll style within grid) ── */
+      /* ── Features Section ── */
       .features {
         padding: 100px 3rem;
         max-width: 1280px;
@@ -345,17 +345,18 @@
         letter-spacing: -0.02em;
         line-height: 1.2;
       }
-      .section-header p {
+      .section-header > p {
         font-size: 0.85rem;
         color: var(--on-surface-variant);
         max-width: 260px;
         text-align: right;
         line-height: 1.6;
       }
-      [dir="rtl"] .section-header p {
+      [dir="rtl"] .section-header > p {
         text-align: left;
       }
 
+      /* Feature rows */
       .features-list {
         display: flex;
         flex-direction: column;
@@ -369,17 +370,25 @@
         border-bottom: 1px solid rgba(169, 180, 185, 0.12);
         align-items: center;
         transition: all 0.2s;
-        cursor: default;
+        cursor: pointer;
       }
       .feature-item:first-child {
         border-top: 1px solid rgba(169, 180, 185, 0.12);
       }
       .feature-item:hover {
         padding-left: 0.5rem;
+        background: rgba(0, 83, 219, 0.015);
       }
       [dir="rtl"] .feature-item:hover {
         padding-left: 0;
         padding-right: 0.5rem;
+      }
+      .feature-item.active {
+        background: rgba(0, 83, 219, 0.03);
+        border-color: var(--primary);
+      }
+      .feature-item.active + .feature-item {
+        border-top-color: transparent;
       }
       .feature-item .icon-circle {
         width: 48px;
@@ -389,6 +398,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: all 0.3s;
+      }
+      .feature-item.active .icon-circle {
+        background: var(--primary);
+      }
+      .feature-item.active .icon-circle span {
+        color: white;
       }
       .feature-item .icon-circle span {
         color: var(--primary);
@@ -406,7 +422,7 @@
       }
       .feature-item .arrow {
         color: var(--outline-variant);
-        transition: all 0.2s;
+        transition: all 0.3s;
         font-size: 20px;
       }
       .feature-item:hover .arrow {
@@ -415,6 +431,132 @@
       }
       [dir="rtl"] .feature-item:hover .arrow {
         transform: translateX(-4px);
+      }
+      .feature-item.active .arrow {
+        color: var(--primary);
+        transform: rotate(90deg);
+      }
+      [dir="rtl"] .feature-item.active .arrow {
+        transform: rotate(-90deg);
+      }
+
+      /* Feature detail panel */
+      .feature-detail {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.4s ease;
+        opacity: 0;
+        border-bottom: 1px solid transparent;
+      }
+      .feature-detail.open {
+        max-height: 700px;
+        opacity: 1;
+        border-bottom: 1px solid rgba(169, 180, 185, 0.12);
+      }
+      .feature-detail-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        padding: 2rem 0 2.5rem;
+      }
+      .detail-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .detail-content .detail-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+      .detail-content .detail-badge .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--primary);
+      }
+      .detail-content h3 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+      .detail-content .detail-desc {
+        font-size: 0.92rem;
+        color: var(--on-surface-variant);
+        line-height: 1.75;
+        margin-bottom: 1.5rem;
+      }
+      .detail-highlights {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+      .detail-highlights li {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--on-surface);
+      }
+      .detail-highlights li .check {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        background: var(--primary-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .detail-highlights li .check span {
+        color: var(--primary);
+        font-size: 14px;
+      }
+
+      .detail-screen {
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(169, 180, 185, 0.12);
+        box-shadow: 0 8px 32px rgba(42, 52, 57, 0.06);
+        background: var(--surface-lowest);
+        position: relative;
+      }
+      .detail-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top left;
+        display: block;
+      }
+      .detail-screen .screen-label {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        padding: 4px 12px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(8px);
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--on-surface);
+      }
+      [dir="rtl"] .detail-screen .screen-label {
+        left: auto;
+        right: 12px;
       }
 
       /* ── CTA ── */
@@ -583,7 +725,7 @@
           align-items: flex-start;
           gap: 1rem;
         }
-        .section-header p {
+        .section-header > p {
           text-align: left;
         }
         .feature-item {
@@ -591,6 +733,13 @@
         }
         .feature-item .arrow {
           display: none;
+        }
+        .feature-detail-inner {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+        .detail-screen {
+          order: -1;
         }
         .cta-section {
           padding: 0 1.5rem 60px;
@@ -666,8 +815,8 @@
           >
         </div>
         <h1 class="font-headline">
-          <span data-en="Manage with" data-ar="أدر بـ">Manage with</span><br />
-          <span class="blue" data-en="precision." data-ar="دقة."
+          <span data-en="Manage with" data-ar="أدر">Manage with</span><br />
+          <span class="blue" data-en="precision." data-ar="بدقة"
             >precision.</span
           >
         </h1>
@@ -760,8 +909,14 @@
           control.
         </p>
       </div>
+
       <div class="features-list">
-        <div class="feature-item fade-up">
+        <!-- 1. Asset Management -->
+        <div
+          class="feature-item fade-up"
+          data-feature="assets"
+          onclick="toggleFeature('assets')"
+        >
           <div class="icon-circle">
             <span class="material-symbols-outlined">inventory_2</span>
           </div>
@@ -779,7 +934,97 @@
           </div>
           <span class="material-symbols-outlined arrow">arrow_forward</span>
         </div>
-        <div class="feature-item fade-up">
+        <div class="feature-detail" id="detail-assets">
+          <div class="feature-detail-inner">
+            <div class="detail-content">
+              <div class="detail-badge">
+                <div class="dot"></div>
+                <span data-en="Module 01" data-ar="الوحدة 01">Module 01</span>
+              </div>
+              <h3
+                class="font-headline"
+                data-en="Complete Asset Lifecycle Management"
+                data-ar="إدارة كاملة لدورة حياة الأصول"
+              >
+                Complete Asset Lifecycle Management
+              </h3>
+              <p
+                class="detail-desc"
+                data-en="Track every asset from procurement through deployment to retirement. Atheneum's asset module provides real-time visibility across all your facilities, with automated audit trails and depreciation forecasting that keeps your inventory accurate and compliant."
+                data-ar="تتبع كل أصل من الشراء مرورًا بالنشر وحتى الإيقاف. توفر وحدة الأصول في Atheneum رؤية فورية عبر جميع منشآتك، مع مسارات تدقيق آلية وتوقع الاستهلاك للحفاظ على دقة المخزون والامتثال."
+              >
+                Track every asset from procurement through deployment to
+                retirement. Atheneum's asset module provides real-time
+                visibility across all your facilities, with automated audit
+                trails and depreciation forecasting that keeps your inventory
+                accurate and compliant.
+              </p>
+              <ul class="detail-highlights">
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Real-time inventory tracking across locations"
+                    data-ar="تتبع فوري للمخزون عبر المواقع"
+                    >Real-time inventory tracking across locations</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Automated audit trail and compliance logging"
+                    data-ar="مسار تدقيق آلي وسجل الامتثال"
+                    >Automated audit trail and compliance logging</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Depreciation forecasting and lifecycle reports"
+                    data-ar="توقع الاستهلاك وتقارير دورة الحياة"
+                    >Depreciation forecasting and lifecycle reports</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Multi-location mapping with status indicators"
+                    data-ar="خرائط متعددة المواقع مع مؤشرات الحالة"
+                    >Multi-location mapping with status indicators</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="detail-screen">
+              <img
+                src="../screenshots/assets-management-light.png"
+                alt="Asset Management Screen"
+                loading="lazy"
+              />
+              <div
+                class="screen-label"
+                data-en="Assets Dashboard"
+                data-ar="لوحة الأصول"
+              >
+                Assets Dashboard
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. User Administration -->
+        <div
+          class="feature-item fade-up"
+          data-feature="users"
+          onclick="toggleFeature('users')"
+        >
           <div class="icon-circle">
             <span class="material-symbols-outlined">group</span>
           </div>
@@ -797,7 +1042,96 @@
           </div>
           <span class="material-symbols-outlined arrow">arrow_forward</span>
         </div>
-        <div class="feature-item fade-up">
+        <div class="feature-detail" id="detail-users">
+          <div class="feature-detail-inner">
+            <div class="detail-content">
+              <div class="detail-badge">
+                <div class="dot"></div>
+                <span data-en="Module 02" data-ar="الوحدة 02">Module 02</span>
+              </div>
+              <h3
+                class="font-headline"
+                data-en="Granular Team & Access Control"
+                data-ar="تحكم دقيق بالفرق والوصول"
+              >
+                Granular Team & Access Control
+              </h3>
+              <p
+                class="detail-desc"
+                data-en="Organize your entire workforce with role-based access, department hierarchies, and cross-team permission inheritance. Bulk-provision users, enforce security policies, and maintain a clear organizational structure that scales with your enterprise."
+                data-ar="نظّم قوة العمل بالكامل مع وصول قائم على الأدوار وتسلسل الأقسام ووراثة الصلاحيات عبر الفرق. وفّر المستخدمين بالجملة وطبّق سياسات الأمان وحافظ على هيكل تنظيمي واضح يتوسع مع مؤسستك."
+              >
+                Organize your entire workforce with role-based access,
+                department hierarchies, and cross-team permission inheritance.
+                Bulk-provision users, enforce security policies, and maintain a
+                clear organizational structure that scales with your enterprise.
+              </p>
+              <ul class="detail-highlights">
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Role-based access with fine-grained permissions"
+                    data-ar="وصول قائم على الأدوار مع صلاحيات دقيقة"
+                    >Role-based access with fine-grained permissions</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Department hierarchies and team structures"
+                    data-ar="تسلسل الأقسام وهياكل الفرق"
+                    >Department hierarchies and team structures</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Bulk user provisioning and onboarding"
+                    data-ar="توفير المستخدمين بالجملة وإعداد الانضمام"
+                    >Bulk user provisioning and onboarding</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Cross-team permission inheritance"
+                    data-ar="وراثة الصلاحيات عبر الفرق"
+                    >Cross-team permission inheritance</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="detail-screen">
+              <img
+                src="../screenshots/users-management-light.png"
+                alt="User Administration Screen"
+                loading="lazy"
+              />
+              <div
+                class="screen-label"
+                data-en="Users Dashboard"
+                data-ar="لوحة المستخدمين"
+              >
+                Users Dashboard
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Analytics & Statistics -->
+        <div
+          class="feature-item fade-up"
+          data-feature="analytics"
+          onclick="toggleFeature('analytics')"
+        >
           <div class="icon-circle">
             <span class="material-symbols-outlined">monitoring</span>
           </div>
@@ -818,7 +1152,96 @@
           </div>
           <span class="material-symbols-outlined arrow">arrow_forward</span>
         </div>
-        <div class="feature-item fade-up">
+        <div class="feature-detail" id="detail-analytics">
+          <div class="feature-detail-inner">
+            <div class="detail-content">
+              <div class="detail-badge">
+                <div class="dot"></div>
+                <span data-en="Module 03" data-ar="الوحدة 03">Module 03</span>
+              </div>
+              <h3
+                class="font-headline"
+                data-en="Data-Driven Decision Making"
+                data-ar="اتخاذ قرارات مبنية على البيانات"
+              >
+                Data-Driven Decision Making
+              </h3>
+              <p
+                class="detail-desc"
+                data-en="Transform raw operations data into actionable insights with interactive dashboards, automated trend detection, and executive-ready reports. Customize KPIs per department and export comprehensive analyses with a single click."
+                data-ar="حوّل بيانات العمليات الخام إلى رؤى قابلة للتنفيذ مع لوحات تحكم تفاعلية واكتشاف الاتجاهات الآلي وتقارير جاهزة للمستوى التنفيذي. خصص مؤشرات الأداء لكل قسم وصدّر تحليلات شاملة بنقرة واحدة."
+              >
+                Transform raw operations data into actionable insights with
+                interactive dashboards, automated trend detection, and
+                executive-ready reports. Customize KPIs per department and
+                export comprehensive analyses with a single click.
+              </p>
+              <ul class="detail-highlights">
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Interactive dashboards with real-time data"
+                    data-ar="لوحات تحكم تفاعلية مع بيانات فورية"
+                    >Interactive dashboards with real-time data</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Automated trend detection and alerts"
+                    data-ar="اكتشاف الاتجاهات والتنبيهات الآلية"
+                    >Automated trend detection and alerts</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Customizable KPIs per department"
+                    data-ar="مؤشرات أداء قابلة للتخصيص لكل قسم"
+                    >Customizable KPIs per department</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="One-click executive report export"
+                    data-ar="تصدير التقارير التنفيذية بنقرة واحدة"
+                    >One-click executive report export</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="detail-screen">
+              <img
+                src="../screenshots/statistics-light.png"
+                alt="Analytics Screen"
+                loading="lazy"
+              />
+              <div
+                class="screen-label"
+                data-en="Statistics Dashboard"
+                data-ar="لوحة الإحصائيات"
+              >
+                Statistics Dashboard
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Customization -->
+        <div
+          class="feature-item fade-up"
+          data-feature="customization"
+          onclick="toggleFeature('customization')"
+        >
           <div class="icon-circle">
             <span class="material-symbols-outlined">tune</span>
           </div>
@@ -834,7 +1257,97 @@
           </div>
           <span class="material-symbols-outlined arrow">arrow_forward</span>
         </div>
-        <div class="feature-item fade-up">
+        <div class="feature-detail" id="detail-customization">
+          <div class="feature-detail-inner">
+            <div class="detail-content">
+              <div class="detail-badge">
+                <div class="dot"></div>
+                <span data-en="Module 04" data-ar="الوحدة 04">Module 04</span>
+              </div>
+              <h3
+                class="font-headline"
+                data-en="Tailored to Your Organization"
+                data-ar="مخصص لمؤسستك"
+              >
+                Tailored to Your Organization
+              </h3>
+              <p
+                class="detail-desc"
+                data-en="Every enterprise operates differently. Atheneum's customization engine lets you design workflows, create custom data fields, apply conditional logic, and personalize interfaces per department — ensuring the platform works exactly the way your teams need it to."
+                data-ar="كل مؤسسة تعمل بشكل مختلف. يتيح لك محرك التخصيص في Atheneum تصميم سير العمل وإنشاء حقول بيانات مخصصة وتطبيق المنطق الشرطي وتخصيص الواجهات لكل قسم — لضمان عمل المنصة بالطريقة التي يحتاجها فريقك تمامًا."
+              >
+                Every enterprise operates differently. Atheneum's customization
+                engine lets you design workflows, create custom data fields,
+                apply conditional logic, and personalize interfaces per
+                department — ensuring the platform works exactly the way your
+                teams need it to.
+              </p>
+              <ul class="detail-highlights">
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Visual workflow builder with conditional logic"
+                    data-ar="منشئ سير عمل مرئي مع منطق شرطي"
+                    >Visual workflow builder with conditional logic</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Custom field types and data schemas"
+                    data-ar="أنواع حقول مخصصة ومخططات بيانات"
+                    >Custom field types and data schemas</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Per-department interface personalization"
+                    data-ar="تخصيص الواجهة لكل قسم"
+                    >Per-department interface personalization</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Template library for rapid deployment"
+                    data-ar="مكتبة قوالب للنشر السريع"
+                    >Template library for rapid deployment</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="detail-screen">
+              <img
+                src="../screenshots/customization-light.png"
+                alt="Customization Screen"
+                loading="lazy"
+              />
+              <div
+                class="screen-label"
+                data-en="Customization Panel"
+                data-ar="لوحة التخصيص"
+              >
+                Customization Panel
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. System Settings -->
+        <div
+          class="feature-item fade-up"
+          data-feature="settings"
+          onclick="toggleFeature('settings')"
+        >
           <div class="icon-circle">
             <span class="material-symbols-outlined">settings</span>
           </div>
@@ -851,6 +1364,89 @@
             </p>
           </div>
           <span class="material-symbols-outlined arrow">arrow_forward</span>
+        </div>
+        <div class="feature-detail" id="detail-settings">
+          <div class="feature-detail-inner">
+            <div class="detail-content">
+              <div class="detail-badge">
+                <div class="dot"></div>
+                <span data-en="Module 05" data-ar="الوحدة 05">Module 05</span>
+              </div>
+              <h3
+                class="font-headline"
+                data-en="Centralized System Control"
+                data-ar="تحكم مركزي بالنظام"
+              >
+                Centralized System Control
+              </h3>
+              <p
+                class="detail-desc"
+                data-en="Fine-tune every aspect of your platform from one unified control center. Manage security policies, configure third-party integrations, set notification rules, and ensure regulatory compliance — all without leaving the admin console."
+                data-ar="اضبط كل جانب من جوانب منصتك من مركز تحكم موحد. أدر سياسات الأمان وهيئ التكاملات مع أطراف ثالثة وحدد قواعد الإشعارات وضمن الامتثال التنظيمي — كل ذلك دون مغادرة وحدة التحكم."
+              >
+                Fine-tune every aspect of your platform from one unified control
+                center. Manage security policies, configure third-party
+                integrations, set notification rules, and ensure regulatory
+                compliance — all without leaving the admin console.
+              </p>
+              <ul class="detail-highlights">
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Security policy management and enforcement"
+                    data-ar="إدارة وتنفيذ سياسات الأمان"
+                    >Security policy management and enforcement</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Third-party integration marketplace"
+                    data-ar="سوق التكاملات مع أطراف ثالثة"
+                    >Third-party integration marketplace</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Notification rules and alert configuration"
+                    data-ar="قواعد الإشعارات وتكوين التنبيهات"
+                    >Notification rules and alert configuration</span
+                  >
+                </li>
+                <li>
+                  <div class="check">
+                    <span class="material-symbols-outlined">check</span>
+                  </div>
+                  <span
+                    data-en="Compliance and audit configuration"
+                    data-ar="تكوين الامتثال والتدقيق"
+                    >Compliance and audit configuration</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="detail-screen">
+              <img
+                src="../screenshots/settings-light.png"
+                alt="Settings Screen"
+                loading="lazy"
+              />
+              <div
+                class="screen-label"
+                data-en="Settings Console"
+                data-ar="وحدة الإعدادات"
+              >
+                Settings Console
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -971,6 +1567,7 @@
     </footer>
 
     <script>
+      // Language toggle
       let currentLang = "en";
       function toggleLang() {
         currentLang = currentLang === "en" ? "ar" : "en";
@@ -984,6 +1581,47 @@
           el.textContent = el.getAttribute("data-" + currentLang);
         });
       }
+
+      // Feature accordion toggle
+      let activeFeature = null;
+      function toggleFeature(id) {
+        const detail = document.getElementById("detail-" + id);
+        const row = document.querySelector(
+          '.feature-item[data-feature="' + id + '"]',
+        );
+
+        // If clicking the already-open feature, close it
+        if (activeFeature === id) {
+          detail.classList.remove("open");
+          row.classList.remove("active");
+          activeFeature = null;
+          return;
+        }
+
+        // Close any currently open feature
+        if (activeFeature) {
+          document
+            .getElementById("detail-" + activeFeature)
+            .classList.remove("open");
+          document
+            .querySelector(
+              '.feature-item[data-feature="' + activeFeature + '"]',
+            )
+            .classList.remove("active");
+        }
+
+        // Open clicked feature
+        detail.classList.add("open");
+        row.classList.add("active");
+        activeFeature = id;
+
+        // Smooth scroll to the detail panel
+        setTimeout(() => {
+          row.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+
+      // Intersection Observer for fade-up
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry, i) => {
