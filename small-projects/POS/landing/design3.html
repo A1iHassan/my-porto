@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monolith POS | Spatial Bento</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Inter:wght@400;500;600&family=Cairo:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #e8eff3;
+      }
+      .font-manrope {
+        font-family: "Manrope", sans-serif;
+      }
+      [dir="rtl"] {
+        font-family: "Cairo", sans-serif;
+      }
+      * {
+        border-radius: 0px !important;
+      }
+      .bento-shadow {
+        box-shadow: 0 10px 30px -10px rgba(42, 52, 57, 0.1);
+      }
+    </style>
+  </head>
+  <body class="text-slate-800 transition-all duration-300">
+    <div class="w-full px-4 md:px-8 py-4 space-y-4">
+      <!-- Header Block -->
+      <div
+        class="bg-white bento-shadow p-6 md:p-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-8"
+      >
+        <div>
+          <div class="flex items-center gap-6 mb-4">
+            <div
+              class="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 block"
+              data-ar="البنية التحتية للتجزئة"
+            >
+              Retail Infrastructure
+            </div>
+            <!-- Language Toggle -->
+            <button
+              id="langToggle"
+              class="text-xs font-bold bg-slate-100 hover:bg-slate-200 px-3 py-1 text-slate-500 transition-colors"
+            >
+              عربي / AR
+            </button>
+          </div>
+          <h1
+            class="text-5xl md:text-7xl font-black font-manrope tracking-tighter uppercase leading-[0.9]"
+            data-ar="نظام<br>مونوليث."
+          >
+            Monolith<br />System.
+          </h1>
+        </div>
+        <div class="flex flex-col gap-4 max-w-sm">
+          <p
+            class="text-sm font-medium text-slate-500"
+            data-ar="نظام نقاط بيع لا يقبل المساومة. قم بإدارة المعاملات، وتتبع عدد غير محدود من المنتجات، وتحليل البيانات في مساحة موحدة."
+          >
+            Uncompromising Point of Sale system. Manage transactions, track
+            unlimited SKUs, and dissect analytics on a singular, unified plain.
+          </p>
+          <button
+            class="bg-slate-900 text-white py-3 px-6 text-xs font-bold uppercase tracking-widest hover:bg-blue-600 transition-colors self-start"
+            data-ar="احجز عرضاً تجريبياً"
+          >
+            Book a Demo
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <!-- Large Hero Showcase (Checkout) -->
+        <div
+          class="md:col-span-8 bg-zinc-900 bento-shadow flex flex-col group min-h-[500px]"
+        >
+          <div class="p-8 pb-0 relative z-10 text-white">
+            <h2
+              class="text-3xl font-black font-manrope uppercase tracking-tighter"
+              data-ar="منطق الدفع"
+            >
+              Terminal Logic
+            </h2>
+            <p
+              class="text-slate-400 mt-2 text-sm"
+              data-ar="معالجة سريعة لعمليات الدفع والخصومات بدون أي تأخير."
+            >
+              Swift, responsive checkout handling bulk carts and discounts with
+              zero latency.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-2 mb-8">
+              <span
+                class="px-3 py-1 border border-zinc-700 text-[10px] font-bold uppercase tracking-widest"
+                >Multi-Item Carts</span
+              >
+              <span
+                class="px-3 py-1 border border-zinc-700 text-[10px] font-bold uppercase tracking-widest"
+                >Live Subtotals</span
+              >
+            </div>
+          </div>
+          <div class="flex-1 p-8 pt-0 flex justify-center items-center">
+            <img
+              src="images/checkout.png"
+              class="w-full object-contain shadow-2xl transition-transform group-hover:scale-[1.02] duration-1000"
+            />
+          </div>
+        </div>
+
+        <!-- Payments Module -->
+        <div
+          class="md:col-span-4 bg-white bento-shadow p-8 flex flex-col justify-between min-h-[500px]"
+        >
+          <div>
+            <span class="material-symbols-outlined text-4xl text-blue-600 mb-6"
+              >payments</span
+            >
+            <h2
+              class="text-2xl font-black font-manrope uppercase tracking-tighter mb-2"
+              data-ar="الدفع والنقر"
+            >
+              Fiat & Tap
+            </h2>
+            <p
+              class="text-slate-500 text-sm mb-8"
+              data-ar="قبول عالمي لجميع طرق الدفع مدمج في النظام."
+            >
+              Universal payment acceptance baked into the terminal protocol.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="border-l-4 border-blue-600 pl-4 py-1">
+              <h3
+                class="font-bold text-sm uppercase tracking-widest leading-none"
+              >
+                Apple Pay & Google Pay
+              </h3>
+              <p class="text-xs text-slate-400 mt-1" data-ar="تكامل وحدة NFC">
+                NFC module integration
+              </p>
+            </div>
+            <div
+              class="border-l-4 border-slate-900 pl-4 py-1 hover:border-slate-400 transition-colors"
+            >
+              <h3
+                class="font-bold text-sm uppercase tracking-widest leading-none"
+                data-ar="قارئ البطاقات"
+              >
+                Card Reader
+              </h3>
+              <p
+                class="text-xs text-slate-400 mt-1"
+                data-ar="دعم الشريحة والسحب"
+              >
+                EMV Chip & Swipe capability
+              </p>
+            </div>
+            <div
+              class="border-l-4 border-slate-200 pl-4 py-1 hover:border-slate-400 transition-colors"
+            >
+              <h3
+                class="font-bold text-sm uppercase tracking-widest leading-none"
+                data-ar="معالجة النقد"
+              >
+                Cash Processor
+              </h3>
+              <p
+                class="text-xs text-slate-400 mt-1"
+                data-ar="فتح الدرج تلقائياً"
+              >
+                Automated drawer release
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hardware/Scanner Focus -->
+        <div
+          class="md:col-span-3 bg-blue-600 text-white bento-shadow p-8 flex flex-col justify-between group"
+        >
+          <div class="z-10 relative">
+            <h2
+              class="text-2xl font-black font-manrope uppercase tracking-tighter mb-2"
+              data-ar="روتين الليزر"
+            >
+              Laser Sub-routine
+            </h2>
+            <p
+              class="text-blue-200 text-sm"
+              data-ar="مسح فوري للباركود بأنواعه."
+            >
+              Instant 1D/2D barcode optic resolution.
+            </p>
+          </div>
+          <span
+            class="material-symbols-outlined text-[100px] opacity-20 group-hover:opacity-40 transition-opacity transform group-hover:scale-110 duration-500 mt-4 self-end"
+            >qr_code_scanner</span
+          >
+        </div>
+
+        <!-- Inventory Showcase -->
+        <div
+          class="md:col-span-6 bg-white bento-shadow flex flex-col group min-h-[400px]"
+        >
+          <div
+            class="p-8 border-b border-slate-100 flex flex-col justify-between"
+          >
+            <div>
+              <h2
+                class="text-2xl font-black font-manrope uppercase tracking-tighter mb-2"
+                data-ar="نظرة المخزون المباشر"
+              >
+                Live Inventory Optics
+              </h2>
+              <p
+                class="text-slate-500 text-sm mb-6"
+                data-ar="قاعدة بيانات تتزامن فور مسح أي عنصر."
+              >
+                A categorized matrix that syncs the moment an item is scanned.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-2 py-1 bg-slate-100 text-[10px] font-bold uppercase tracking-widest text-slate-500"
+                >Stock Alerts</span
+              >
+              <span
+                class="px-2 py-1 bg-slate-100 text-[10px] font-bold uppercase tracking-widest text-slate-500"
+                >Fast Search</span
+              >
+            </div>
+          </div>
+          <div class="p-8 flex-1 flex justify-center items-center bg-slate-50">
+            <img
+              src="images/inventory.png"
+              class="w-full object-contain shadow-lg group-hover:scale-[1.02] transition-transform duration-500"
+            />
+          </div>
+        </div>
+
+        <!-- Printing Focus -->
+        <div
+          class="md:col-span-3 bg-slate-900 text-white bento-shadow p-8 flex flex-col justify-between group"
+        >
+          <div class="z-10 relative">
+            <h2
+              class="text-2xl font-black font-manrope uppercase tracking-tighter mb-2"
+              data-ar="الإخراج الحراري"
+            >
+              Thermal Output
+            </h2>
+            <p
+              class="text-slate-400 text-sm"
+              data-ar="طباعة الفواتير تلقائياً عند إغلاق المعاملة."
+            >
+              Auto-cut receipt printing triggers on successful transaction
+              close.
+            </p>
+          </div>
+          <span
+            class="material-symbols-outlined text-[100px] opacity-20 transform -scale-x-100 group-hover:opacity-40 transition-opacity group-hover:scale-110 duration-500 mt-4 self-end"
+            >receipt_long</span
+          >
+        </div>
+
+        <!-- Full span Reports -->
+        <div
+          class="md:col-span-8 bg-white bento-shadow flex flex-col xl:flex-row"
+        >
+          <div
+            class="p-8 md:p-12 flex-shrink-0 z-10 w-full xl:w-2/5 flex flex-col justify-center"
+          >
+            <h2
+              class="text-4xl font-black font-manrope uppercase tracking-tighter mb-4"
+              data-ar="الاستطلاع المالي"
+            >
+              Financial Recon.
+            </h2>
+            <p
+              class="text-slate-500 mb-6 text-sm"
+              data-ar="الوصول إلى الخرائط الحرارية، والمدفوعات فوراً."
+            >
+              Access heatmaps, velocity charts, and payment method breakdowns
+              instantly.
+            </p>
+            <div class="space-y-2 mb-8 hidden md:block">
+              <div
+                class="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-blue-600"
+              >
+                <span class="material-symbols-outlined text-sm">check</span>
+                Forecast Modeling
+              </div>
+              <div
+                class="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-blue-600"
+              >
+                <span class="material-symbols-outlined text-sm">check</span>
+                Payment Splits
+              </div>
+            </div>
+            <button
+              class="bg-blue-600 text-white py-3 px-6 text-xs font-bold uppercase tracking-widest hover:bg-slate-900 transition-colors self-start"
+              data-ar="ابدأ تجربتك"
+            >
+              Start Trial
+            </button>
+          </div>
+          <div
+            class="p-8 w-full xl:w-3/5 bg-slate-100 flex justify-center items-center"
+          >
+            <img
+              src="images/reports.png"
+              class="w-full object-contain shadow-2xl hover:scale-[1.02] transition-transform"
+            />
+          </div>
+        </div>
+
+        <!-- Transaction Logs -->
+        <div
+          class="md:col-span-4 bg-zinc-100 border border-zinc-200 bento-shadow flex flex-col group"
+        >
+          <div class="p-8 pb-4">
+            <h2
+              class="text-2xl font-black font-manrope uppercase tracking-tighter mb-2"
+              data-ar="سجلات المعاملات"
+            >
+              Transaction Registry
+            </h2>
+            <p
+              class="text-slate-500 text-sm"
+              data-ar="تاريخ مفصل لكل معاملة مع القدرة على الاسترجاع."
+            >
+              Detailed history of every transaction with high-fidelity refund &
+              reprint support.
+            </p>
+          </div>
+          <div class="p-8 pt-0 flex-1 flex justify-center items-center">
+            <img
+              src="images/receipts.png"
+              class="w-full object-contain shadow-xl group-hover:scale-[1.02] transition-transform duration-500 hover:-translate-y-2"
+            />
+          </div>
+        </div>
+      </div>
+
+      <footer class="p-8 text-center bg-transparent mt-8">
+        <p
+          class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400"
+        >
+          ©2026 Architectural Ledger. All rights reserved.
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      const toggleBtn = document.getElementById("langToggle");
+      let isAr = false;
+      toggleBtn.addEventListener("click", () => {
+        isAr = !isAr;
+        document.documentElement.dir = isAr ? "rtl" : "ltr";
+        toggleBtn.innerText = isAr ? "English / EN" : "عربي / AR";
+
+        // Swap text utilizing data-ar
+        document.querySelectorAll("[data-ar]").forEach((el) => {
+          if (!el.dataset.en) el.dataset.en = el.innerHTML;
+          el.innerHTML = isAr ? el.dataset.ar : el.dataset.en;
+        });
+      });
+    </script>
+  </body>
+</html>
