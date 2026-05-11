@@ -5,6 +5,7 @@ import remarkParse from "remark-parse";
 import NodeCmpt from "../components/nodeCompenent";
 import { Root } from "mdast";
 import Copy from "../components/copyButton";
+import Save from "../components/saveButton";
 
 function Convert() {
   const [markdown, setMarkdown] = useState("");
@@ -41,21 +42,23 @@ function Convert() {
           )}
         </div>
       </aside>
-
-      <aside className="flex flex-col bg-slate-50 flex-1 h-11/12 p-2 font-mono">
-        <div className="flex flex-row justify-between text-slate-500">
-          <span className="text-3xl text-slate-400">Markdown</span>
-          <Copy />
-        </div>
-        <textarea
-          className="focus:outline-slate-300 resize-none h-full p-2"
-          name="result"
-          id="result"
-          onChange={handleChange}
-          onKeyDown={show} // this is here for debugging purposes
-          placeholder="Start typing in Markdown to see the results on the Output page"
-        ></textarea>
-      </aside>
+      <div className="flex-1">
+        <aside className="flex flex-col bg-slate-50  h-11/12 p-2 font-mono">
+          <div className="flex flex-row justify-between text-slate-500">
+            <span className="text-3xl text-slate-400">Markdown</span>
+            <Copy />
+          </div>
+          <textarea
+            className="focus:outline-slate-300 resize-none h-full p-2"
+            name="result"
+            id="result"
+            onChange={handleChange}
+            onKeyDown={show} // this is here for debugging purposes
+            placeholder="Start typing in Markdown to see the results on the Output page"
+          ></textarea>
+        </aside>
+        <Save />
+      </div>
     </main>
   );
 }
