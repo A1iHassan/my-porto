@@ -194,3 +194,23 @@
     transform: scale(1);
   }
 }
+
+/* Print styles: only show the rendered output content */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #output-content,
+  #output-content * {
+    visibility: visible;
+  }
+
+  #output-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 2rem;
+  }
+}
